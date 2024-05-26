@@ -46,11 +46,11 @@ function cleanTitle(title) {
 function createMore() {
 	let more = document.createElement('div');
 	more.classList.add('more');
-	more.textContent = '기사 더보기 ⏷';
+	more.textContent = 'もっと見る ⏷';
 
 	more.addEventListener('click', async () => {
 		
-		more.textContent = '로딩중...';
+		more.textContent = '読み込み中...';
 		await updateList(currentOffset, 10);
 		currentOffset += 10;
 		more.remove();

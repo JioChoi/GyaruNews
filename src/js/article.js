@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	document.getElementById('like').addEventListener('click', async () => {
 		if (window.localStorage.getItem(id) == 'true') {
-			alert('이미 반응하셨습니다.')
+			alert('Already reacted!')
 			return;
 		}
 
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	document.getElementById('dislike').addEventListener('click', async () => {
 		if (window.localStorage.getItem(id) == 'true') {
-			alert('이미 반응하셨습니다.')
+			alert('Already reacted!')
 			return;
 		}
 		
@@ -87,13 +87,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 	});
 });
 
-/*
-<h1 id="title"></h1>
-<h3 id="date"></h3>
-<img id="img" src="">
-<h4>(기사 속 사건과 관련 없음)</h4>
-*/
-
 async function loadComments() {
 	let response = await fetch(`${host}/api/comments/${id}`, {
 		method: 'GET',
@@ -103,7 +96,7 @@ async function loadComments() {
 	});
 
 	response = await response.json();
-	document.getElementById('comment_num').innerText = "댓글 " + response.length + "개";
+	document.getElementById('comment_num').innerText = "コメント　" + response.length + "件";
 
 	document.getElementById("comments").innerHTML = "";
 	
@@ -130,18 +123,18 @@ function writeContent(response) {
 
 	url.addEventListener('click', () => {
 		navigator.clipboard.writeText(url.innerText);
-		alert('게시글 주소가 복사되었습니다.');
+		alert('投稿アドレスがコピーされました');
 	});
 
 	let report = document.createElement('div');
-	report.innerText = "신고하기";
+	report.innerText = "通報";
 	report.classList.add('report');
 
 	div.appendChild(url);
 	div.appendChild(report);
 
 	report.addEventListener('click', () => {
-		let yes = confirm('해당 게시글을 신고하시겠습니까?');
+		let yes = confirm('このコメントを通報しますか？');
 		if (yes) {
 			fetch(`${host}/api/report`, {
 				method: 'POST',
@@ -152,12 +145,12 @@ function writeContent(response) {
 					id: id
 				})
 			});
-			alert('신고가 접수되었습니다.');
+			alert('通報が受理されました');
 		}
 	});
 
 	let h4 = document.createElement('h4');
-	h4.innerText = "(기사 속 사건과 관련 없음)";
+	h4.innerText = "(記事の内容と関係ない場合があります。)";
 	
 	let img = document.createElement('img');
 	if (response.img.substring(0, 4) == 'http') {
@@ -173,19 +166,11 @@ function writeContent(response) {
 	response.article = response.article.replaceAll('    ', ' ');
 	response.article = response.article.replaceAll('   ', ' ');
 	response.article = response.article.replaceAll('  ', ' ');
-	
-	response.article = response.article.replaceAll('!', '♡');
-	response.article = response.article.replaceAll('. ', '♡ ');
-	response.article = response.article.replaceAll('.♡', '♡');
-	response.article = response.article.replaceAll(' ♡', '♡');
-	response.article = response.article.replaceAll('♡♡', '♡');
-	response.article = response.article.replaceAll('♡♡♡', '♡');
-	response.article = response.article.replaceAll('♡.', '♡');
 
 	let data = response.article;
 
 	let h5 = document.createElement('h5');
-	h5.innerHTML = "해당 기사는 AI 기자 <strong>뉴스가키</strong>가 작성하였습니다.";
+	h5.innerHTML = "この記事は<strong>ギャルニュースAI</strong>が制作しました。";
 
 	// Remove first children
 	content.removeChild(content.firstElementChild);
@@ -270,11 +255,11 @@ function addComment(name, value) {
 async function submit() {
 	let comment = document.getElementById('edit').value.trim();
 	if (comment.length < 1) {
-		alert('내용을 입력해주세요.');
+		alert('コメントを入力してください。');
 		return;
 	}
 
-	alert('댓글을 작성했습니다.');
+	alert('コメントを書きました。');
 
 	await fetch(`${host}/api/comment`, {
 		method: 'POST',

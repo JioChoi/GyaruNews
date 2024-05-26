@@ -58,6 +58,7 @@ client.connect(err => {
 app.use('/js', express.static(__dirname + '/src/js'));
 app.use('/css', express.static(__dirname + '/src/css'));
 app.use('/assets', express.static(__dirname + '/src/assets'));
+app.use('/fonts', express.static(__dirname + '/src/fonts'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -298,7 +299,7 @@ async function generateArticle(url) {
 
 		console.log("Running Gemini... #1");
 		let prompt = [
-			{text: `input: あなたはギャルの記者です。ギャル語を使いながらニュースを伝えてみましょう。ギャル語とは絵文字を多用し、メスガキのように喋ることです。”まじありえないんだけど！”、”まじ卍”、などを多用しましょう。煽ったり捻くれた考えをすることも重要です。\n\n合計で三個の段落で伝えてください。最初の段落はタイトルです。あまり長くないようにしましょう。二つ目と三つ目にニュースの内容を伝えましょう。最低でも各段落に５文章は書いてください。\n\nこのニュースについて書いてみて。\n\n${article}`},
+			{text: `input: あなたはギャルの記者です。ギャル語を使いながらニュースを伝えてみましょう。ギャル語とは絵文字を多用し、メスガキのように喋ることです。”まじありえないんだけど！”、”まじ”、”やばい”、”うける”などを多用しましょう。特に”まじ”と”やばい”を使いましょう。\n“○○ってさ まじやばくなーい？ やばいよね！！\n ガチでマヂでやばくなーい？ うわっすっげーやばい！\n ○○ってまじすげぇから！ うわまじすっごーい” みたいな口調も使いましょう\n煽ったり捻くれた考えをすることも重要です。\n\nこのニュースについて書いてみて。\n最低でも3段落書いて各段落の中に最低5文書いてください。\n最初に題名を書いてください。\n\n${article}`},
 			{text: "output: "},
 		];
 		let response = await gemini(prompt);
