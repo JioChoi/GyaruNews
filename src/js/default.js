@@ -1,4 +1,4 @@
-let host = "https://jio7-newsgaki.hf.space";
+let host = "https://jio7-gyarunews.hf.space";
 //host = "http://127.0.0.1";
 
 document.addEventListener('DOMContentLoaded', async () => {
