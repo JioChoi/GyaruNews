@@ -85,7 +85,7 @@ app.get('/article/:id', async (req, res) => {
 		data = data.replaceAll('${dislike_count}', response.rows[0].dislikes);
 
 		let article = response.rows[0].article;
-		data = data.replace('${description}', article.replaceAll('\n', ' '));
+		data = data.replaceAll('${description}', article.replaceAll('\n', ' '));
 
 		article = article.split('\n');
 		let content = '';
