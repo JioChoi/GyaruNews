@@ -27,11 +27,6 @@ async function startLoadingArticle() {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-	// Rendom comment
-	if (Math.random() * 100 == 1) {
-		document.getElementById('edit').value = "히잡♡"
-	}
-
 	console.log("DOM LOADED!!!");
 	id = new URLSearchParams(location.search).get('id');
 
@@ -119,7 +114,7 @@ function writeContent(response) {
 
 	let url = document.createElement('div');
 	url.classList.add('url');
-	url.innerText = "https://newsgaki.com/article?id=" + response.id;
+	url.innerText = "https://gyarunews.com/article?id=" + response.id;
 
 	url.addEventListener('click', () => {
 		navigator.clipboard.writeText(url.innerText);
